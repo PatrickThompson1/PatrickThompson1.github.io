@@ -78,8 +78,10 @@ main {
     padding: 5px;
     margin-top: 20px;
     border-width: 10;
+    font-size: 15px;
 }
 
 h2, h3 {
     margin: 0%;
+    font-size: 25px;
 }
