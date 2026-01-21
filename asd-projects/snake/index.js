@@ -12,6 +12,9 @@ var highScoreElement = $("#highScore");
 // Game Variables
 var score = 0; // variable to keep track of the score
 var started = false; // variable to keep track of whether the game has started
+var colors = ["red", "orange", "yellow", "green", "blue", "purple"];
+var colorIndex = 0;
+var isReversed = false; // variable to keep track of whether the snake is reversed
 // TODO 4, Part 1: Create the apple variable
 var apple = {};
 
@@ -114,12 +117,13 @@ function moveSnake() {
     stored in the Array snake.body and each part knows its current 
     column/row properties. 
   */
-var currentSnakeSquare = "???";
-var snakeSquareInFront = "???";
+ for (let i = snake.body.length - 1; i > 0; i--) {
+var currentSnakeSquare = snake.body[i];
+var snakeSquareInFront = snake.body[i - 1];
 
 moveBodyAToBodyB(currentSnakeSquare, snakeSquareInFront);
 repositionSquare(currentSnakeSquare);
-
+ }
 
 
 
@@ -170,9 +174,13 @@ function hasHitWall() {
     
     HINT: What will the row and column of the snake's head be if this were the case?
   */
-
-
-
+if (snake.head.row < 0 || snake.head.row >= ROWS) {
+    return true;
+  }
+if (snake.head.column < 0 || snake.head.column >= COLUMNS) {
+    return true;
+  }
+ 
   return false;
 }
 
@@ -183,7 +191,9 @@ function hasCollidedWithApple() {
     
     HINT: Both the apple and the snake's head are aware of their own row and column
   */
-
+if (snake.head.row === apple.row && snake.head.column === apple.column) {
+    return true;
+  }
 
 
   return false;
@@ -193,7 +203,11 @@ function handleAppleCollision() {
   // increase the score and update the score DOM element
   score++;
   scoreElement.text("Score: " + score);
-
+score = score + 1;
+if (score > 0 && score % 10 === 0) {
+  isReversed = !isReversed;
+  }
+}
   // Remove existing Apple and create a new one
   apple.element.remove();
   makeApple();
@@ -212,9 +226,15 @@ function hasCollidedWithSnake() {
     HINT: Each part of the snake's body is stored in the snake.body Array. The
     head and each part of the snake's body also knows its own row and column.
   */
+for (let i = 1; i < snake.body.length; i++) {
 
+  let bodyPart = snake.body[i];
 
-
+  if (snake.head.row === bodyPart.row && snake.head.column === bodyPart.column) {
+      return true;
+    }
+  }
+  
   return false;
 }
 
@@ -268,7 +288,9 @@ function makeSnakeSquare(row, column) {
   // TODO 5, Part 2: Fill in this function's code block
 // initialize a new snakeSquare Object
 const snakeSquare = {};
-
+makeSnakeSquare(snake.tail.row, snake.tail.column);
+snake.tail.element.css("backgroundColor", colors[colorIndex]);
+updateColorIndex();
 // make the snakeSquare element and add it to the board
 snakeSquare.element = $("<div>").addClass("snake").appendTo(board);
 
@@ -351,11 +373,19 @@ function getRandomAvailablePosition() {
       not occupied by a snakeSquare in the snake's body. If it is then set 
       spaceIsAvailable to false so that a new position is generated.
     */
+for (var i = 0; i < snake.body.length; i++) {
+      var bodyPart = snake.body[i];
 
+      if (randomPosition.row === bodyPart.row && randomPosition.column === bodyPart.column) {
 
-
+        spaceIsAvailable = false;
+        break;
+      }
+   
+    }
+   
   }
-
+  
   return randomPosition;
 }
 
