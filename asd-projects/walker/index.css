@@ -12,10 +12,16 @@ body {
 }
 
 #gameItem {
-  background-color: teal;
+  background-color: rgb(229, 210, 2);
   width: 50px;
   height: 50px;
   position: absolute;
-/*   left: 100px; */  /* Uncomment if you want to set a "starting" position */
-/*   top: 100px;  */  /* Uncomment if you want to set a "starting" position */
+  /* left: 100px;  */ /* you can set the initial position of the game item here */
+  /*  top: 100px;  */ /* you can set the initial position of the game item here */  
 }
+ #walker {
+  background-color: rgb(229, 210, 2);
+  width: 50px;
+  height: 50px;
+  position: absolute;
+ }
