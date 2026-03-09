@@ -167,4 +167,3 @@ function drawSwap(array, i, j){
 function updateCounter(counter){
  $(counter).text("Move Count: " + (parseFloat($(counter).text().replace(/^\D+/g, '')) + 1));
 }
-
