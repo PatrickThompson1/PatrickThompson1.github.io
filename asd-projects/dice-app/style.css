@@ -1,0 +1,24 @@
+#dice-container {
+ display: flex;
+ gap: 20px;
+ margin: 50px;
+}
+
+
+#die, #die2 {
+ height: 100px;
+ width: 100px;
+ position: relative;
+ border-radius: 10px;
+}
+
+
+/* Different colors for fun */
+#die {
+ background-color: lightgray;
+}
+
+
+#die2 {
+ background-color: lightblue;
+}
